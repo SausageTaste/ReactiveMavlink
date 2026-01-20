@@ -5203,6 +5203,10 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+"ma-mavlink@file:submodules/ma-mavlink":
+  version "0.1.0"
+  resolved "file:submodules/ma-mavlink"
+
 make-dir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/make-dir/-/make-dir-4.0.0.tgz"
