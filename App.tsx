@@ -6,7 +6,7 @@
  */
 
 import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { StatusBar, StyleSheet, useColorScheme, View, NativeModules } from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -14,6 +14,8 @@ import {
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
+
+  console.log(NativeModules.SimpleTest.getValue()); // 42
 
   return (
     <SafeAreaProvider>
