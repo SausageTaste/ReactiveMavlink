@@ -118,6 +118,7 @@
     </ClCompile>
     <ClCompile Include="SimpleTestModule.cpp" />
     <ClCompile Include="UdpSocket.cpp" />
+    <ClCompile Include="UdpSocketModule.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ReactiveMavlink.rc" />

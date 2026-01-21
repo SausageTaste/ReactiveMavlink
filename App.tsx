@@ -1,47 +1,43 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from "react";
+import { Text, View, NativeEventEmitter, NativeModules } from "react-native";
+import { Buffer } from "buffer";
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View, NativeModules } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const { UdpSocket } = NativeModules;
+const emitter = new NativeEventEmitter(UdpSocket);
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+export default function App() {
+  const [last, setLast] = React.useState("none");
 
-  console.log(NativeModules.SimpleTest.getValue()); // 42
+  React.useEffect(() => {
+    const sub = emitter.addListener("onMessage", (msg: any) => {
+      const bytes = new Uint8Array(Buffer.from(msg.dataBase64, "base64"));
+      console.log(`UDP ${msg.host}:${msg.port} (${bytes.length} bytes)`);
+      setLast(`${msg.host}:${msg.port} (${bytes.length} bytes)`);
+    });
+
+    (async () => {
+      try {
+        await UdpSocket.bind(7573);
+        console.log("UDP bound on 7573");
+
+        // IMPORTANT: tell native we're ready AFTER listener is added
+        UdpSocket.setJsReady(true);
+      } catch (e) {
+        console.error("UDP init failed:", e);
+      }
+    })();
+
+    return () => {
+      try { UdpSocket.setJsReady(false); } catch {}
+      sub.remove();
+      UdpSocket?.close?.();
+    };
+  }, []);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
+    <View style={{ padding: 20 }}>
+      <Text>Listening UDP…</Text>
+      <Text>Last packet: {last}</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-export default App;
