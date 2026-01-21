@@ -50,8 +50,8 @@ REACT_MODULE(UdpSocketModule, L"UdpSocket");
 
 struct UdpSocketModule {
 	// Called once when module is created
-	REACT_INIT(Initialize)
-		void Initialize(ReactContext const& ctx) noexcept {
+	REACT_INIT(Initialize);
+	void Initialize(ReactContext const& ctx) noexcept {
 		m_ctx = ctx;
 	}
 
@@ -61,18 +61,18 @@ struct UdpSocketModule {
 	REACT_EVENT(onMessage);
 	std::function<void(JSValue)> onMessage;
 
-	REACT_METHOD(addListener)
-		void addListener(std::string /*eventName*/) noexcept {
+	REACT_METHOD(addListener);
+	void addListener(std::string /*eventName*/) noexcept {
 		m_listenerCount.fetch_add(1, std::memory_order_relaxed);
 	}
 
-	REACT_METHOD(removeListeners)
-		void removeListeners(int32_t count) noexcept {
+	REACT_METHOD(removeListeners);
+	void removeListeners(int32_t count) noexcept {
 		m_listenerCount.fetch_sub(count, std::memory_order_relaxed);
 	}
 
-	REACT_METHOD(setJsReady)
-		void setJsReady(bool ready) noexcept {
+	REACT_METHOD(setJsReady);
+	void setJsReady(bool ready) noexcept {
 		m_jsReady.store(ready, std::memory_order_release);
 		OutputDebugStringA(ready ? "JS READY\n" : "JS NOT READY\n");
 	}
@@ -120,8 +120,8 @@ struct UdpSocketModule {
 	}
 
 	// close(): void
-	REACT_METHOD(close)
-		void close() noexcept {
+	REACT_METHOD(close);
+	void close() noexcept {
 		std::scoped_lock lock(m_mutex);
 		if (m_udp) {
 			m_udp->Close();
@@ -130,8 +130,8 @@ struct UdpSocketModule {
 	}
 
 	// send(host, port, base64): Promise<void>
-	REACT_METHOD(sendBase64)
-		void sendBase64(std::string host, int32_t port, std::string dataBase64, ReactPromise<void> promise) noexcept {
+	REACT_METHOD(sendBase64);
+	void sendBase64(std::string host, int32_t port, std::string dataBase64, ReactPromise<void> promise) noexcept {
 		try {
 			std::unique_lock lock(m_mutex);
 			if (!m_udp || !m_udp->IsOpen()) {
