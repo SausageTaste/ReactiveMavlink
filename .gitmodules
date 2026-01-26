@@ -1,3 +1,6 @@
 [submodule "submodules/ma-mavlink"]
 	path = submodules/ma-mavlink
 	url = https://192.168.100.22:3000/smwoo/ma-mavlink
+[submodule "submodules/reactive-socks"]
+	path = submodules/reactive-socks
+	url = https://github.com/SausageTaste/reactive-socks
