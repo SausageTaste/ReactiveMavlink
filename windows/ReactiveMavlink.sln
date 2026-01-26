@@ -7,6 +7,8 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ReactiveMavlink.Package", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReactiveMavlink", "ReactiveMavlink\ReactiveMavlink.vcxproj", "{F0E41E93-DBD3-4902-A903-28766BC1EB8A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ReactiveSocks", "..\node_modules\reactive-socks\windows\ReactiveSocks\ReactiveSocks.vcxproj", "{0E8709A2-C7D3-4385-A481-912EF68BF662}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -53,6 +55,18 @@ Global
 		{F0E41E93-DBD3-4902-A903-28766BC1EB8A}.Release|ARM64.ActiveCfg = Release|ARM64
 		{F0E41E93-DBD3-4902-A903-28766BC1EB8A}.Release|ARM64.Build.0 = Release|ARM64
 		{F0E41E93-DBD3-4902-A903-28766BC1EB8A}.Release|ARM64.Deploy.0 = Release|ARM64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|x64.ActiveCfg = Debug|x64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|x64.Build.0 = Debug|x64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|x86.ActiveCfg = Debug|Win32
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|x86.Build.0 = Debug|Win32
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Debug|ARM64.Build.0 = Debug|ARM64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|x64.ActiveCfg = Release|x64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|x64.Build.0 = Release|x64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|x86.ActiveCfg = Release|Win32
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|x86.Build.0 = Release|Win32
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|ARM64.ActiveCfg = Release|ARM64
+		{0E8709A2-C7D3-4385-A481-912EF68BF662}.Release|ARM64.Build.0 = Release|ARM64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

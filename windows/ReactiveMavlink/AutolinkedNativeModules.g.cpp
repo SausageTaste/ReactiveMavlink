@@ -3,12 +3,16 @@
 #include "pch.h"
 #include "AutolinkedNativeModules.g.h"
 
+// Includes from reactive-socks
+#include <winrt/ReactiveSocks.h>
+
 namespace winrt::Microsoft::ReactNative
 {
 
 void RegisterAutolinkedNativeModulePackages(winrt::Windows::Foundation::Collections::IVector<winrt::Microsoft::ReactNative::IReactPackageProvider> const& packageProviders)
 { 
-    UNREFERENCED_PARAMETER(packageProviders);
+    // IReactPackageProviders from reactive-socks
+    packageProviders.Append(winrt::ReactiveSocks::ReactPackageProvider());
 }
 
 }
