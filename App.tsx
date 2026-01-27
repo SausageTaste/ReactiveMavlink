@@ -5,6 +5,7 @@ import { MavlinkFramer } from "ma-mavlink";
 
 
 export default function App() {
+  const [pktCount, setPktCount] = React.useState(0);
   const [last, setLast] = React.useState("none");
   const [lastMavlinkPkt, setLastMavlinkPkt] = React.useState("none");
   const udpRef = React.useRef<number | null>(null);
@@ -15,7 +16,8 @@ export default function App() {
     udpRef.current = h;
     udpBind(h, 7573, "0.0.0.0");
 
-    framerRef.current = new MavlinkFramer((pkt) => {
+    framerRef.current = new MavlinkFramer((pkt: object) => {
+      setPktCount(prevCount => prevCount + 1);
       setLastMavlinkPkt(JSON.stringify(pkt));
     });
 
@@ -41,6 +43,7 @@ export default function App() {
       <Text>Listening UDP…</Text>
       <Text>Last packet: {last}</Text>
       <Text>Last MavLink: {lastMavlinkPkt}</Text>
+      <Text>MavLink packet count: {pktCount}</Text>
       <Text>3 x 7 = {multiply(3, 7)}</Text>
       <Text>UDP handle = {udpRef.current}</Text>
     </View>
