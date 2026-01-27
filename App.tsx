@@ -1,20 +1,27 @@
 import React from "react";
 import { Text, View, DeviceEventEmitter } from "react-native";
 import { multiply, udpBind, udpCreate, udpClose } from "reactive-socks";
+import { MavlinkFramer } from "ma-mavlink";
 
 
 export default function App() {
   const [last, setLast] = React.useState("none");
   const udpRef = React.useRef<number | null>(null);
+  const framerRef = React.useRef<MavlinkFramer | null>(null);
 
   React.useEffect(() => {
     const h = udpCreate();
     udpRef.current = h;
     udpBind(h, 7573, "0.0.0.0");
 
+    framerRef.current = new MavlinkFramer();
+
     const sub = DeviceEventEmitter.addListener('udpMessage', (pkt) => {
-      console.log("Packet", pkt);
-      setLast(`${pkt.host}:${pkt.port} size=${pkt.data_size ?? pkt.dataSize ?? "?"}`);
+      setLast(JSON.stringify(pkt));
+
+      const bytes = Uint8Array.from(pkt.data);
+      framerRef.current.pushBytes(bytes);
+      framerRef.current.process();
     });
 
     return () => {

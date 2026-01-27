@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@react-native/new-app-screen": "0.81.5",
-    "ma-mavlink": "file:submodules/ma-mavlink",
+    "ma-mavlink": "link:./submodules/ma-mavlink",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-safe-area-context": "^5.5.2",

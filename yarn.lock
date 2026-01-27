@@ -5153,8 +5153,9 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-"ma-mavlink@file:submodules/ma-mavlink":
-  version "0.1.0"
+"ma-mavlink@link:./submodules/ma-mavlink":
+  version "0.0.0"
+  uid ""
 
 make-dir@^4.0.0:
   version "4.0.0"
