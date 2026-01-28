@@ -14,7 +14,7 @@ export default function App() {
   React.useEffect(() => {
     const h = udpCreate();
     udpRef.current = h;
-    udpBind(h, 7573, "0.0.0.0");
+    udpBind(h, 7573, "192.168.100.10");
 
     framerRef.current = new MavlinkFramer((pkt: object) => {
       setPktCount(prevCount => prevCount + 1);
