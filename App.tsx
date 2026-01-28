@@ -12,14 +12,14 @@ export default function App() {
   const framerRef = React.useRef<MavlinkFramer | null>(null);
 
   const sendPacket = React.useCallback(async () => {
-    console.log("`sendPacket` called");
+    console.log("multiply:", multiply);
+    console.log("udpBind:", udpBind);
+    console.log("udpCreate:", udpCreate);
+    console.log("udpClose:", udpClose);
+    console.log("udpSend:", udpSend);
 
-    if (0 === udpRef.current) {
-      console.log("Cannot send via UDP because the handle is NULL");
-      return;
-    }
-
-    if (udpSend(udpRef.current, "192.168.100.10", 7573, "Invalid data")) {
+    const result = udpSend(udpRef.current, "192.168.100.10", 7573, "Invalid data");
+    if (result) {
       console.log("Successfully sent!");
     }
     else {
@@ -30,7 +30,11 @@ export default function App() {
   React.useEffect(() => {
     const h = udpCreate();
     udpRef.current = h;
-    udpBind(h, 7573, "192.168.100.10");
+
+    if (!udpBind(h, 7573, "192.168.100.10")) {
+      console.log("Failed to bind UDP socket");
+      return;
+    }
 
     framerRef.current = new MavlinkFramer((pkt: object) => {
       setPktCount(prevCount => prevCount + 1);
