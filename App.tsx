@@ -1,6 +1,6 @@
 import React from "react";
-import { Text, View, DeviceEventEmitter } from "react-native";
-import { multiply, udpBind, udpCreate, udpClose } from "reactive-socks";
+import { Text, View, Pressable, DeviceEventEmitter } from "react-native";
+import { multiply, udpBind, udpCreate, udpClose, udpSend } from "reactive-socks";
 import { MavlinkFramer } from "ma-mavlink";
 
 
@@ -10,6 +10,22 @@ export default function App() {
   const [lastMavlinkPkt, setLastMavlinkPkt] = React.useState("none");
   const udpRef = React.useRef<number | null>(null);
   const framerRef = React.useRef<MavlinkFramer | null>(null);
+
+  const sendPacket = React.useCallback(async () => {
+    console.log("`sendPacket` called");
+
+    if (0 === udpRef.current) {
+      console.log("Cannot send via UDP because the handle is NULL");
+      return;
+    }
+
+    if (udpSend(udpRef.current, "192.168.100.10", 7573, "Invalid data")) {
+      console.log("Successfully sent!");
+    }
+    else {
+      console.log("Failed sending");
+    }
+  }, []);
 
   React.useEffect(() => {
     const h = udpCreate();
@@ -46,6 +62,19 @@ export default function App() {
       <Text>MavLink packet count: {pktCount}</Text>
       <Text>3 x 7 = {multiply(3, 7)}</Text>
       <Text>UDP handle = {udpRef.current}</Text>
+      <Pressable
+        onPress={sendPacket}
+        style={{
+          marginTop: 16,
+          paddingVertical: 10,
+          paddingHorizontal: 14,
+          borderWidth: 1,
+          borderRadius: 6,
+          alignSelf: "flex-start",
+        }}
+      >
+        <Text>Send</Text>
+      </Pressable>
     </View>
   );
 }
